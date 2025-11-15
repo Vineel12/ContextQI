@@ -1,0 +1,30 @@
+## Node modules (root and nested)
+node_modules/
+**/node_modules/
+
+## Build outputs
+dist/
+build/
+coverage/
+
+## Expo / React Native
+.expo/
+.expo-shared/
+**/.expo/
+
+## Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+## Env files
+.env
+.env.*
+.env.local
+
+## Editor / OS junk
+.DS_Store
+.vscode/
+Thumbs.db

@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "ContextIQ Mobile",
+    "slug": "contextiq-mobile",
+    "version": "1.0.0",
+    "scheme": "contextiq",
+    "orientation": "portrait",
+    "jsEngine": "hermes",
+    "platforms": ["ios", "android", "web"],
+    "experiments": { "typedRoutes": true },
+    "plugins": ["expo-router"],
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#020617"
+    },
+    "assetBundlePatterns": ["**/*"]
+  }
+}
