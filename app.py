@@ -9,7 +9,7 @@ import soundfile as sf
 # CONFIG
 # -----------------------------------------------------
 
-GEMINI_API_KEY = "AIzaSyBfJTw0Bf2LAAWpm0JQHdFE90jXOSH98p4"
+GEMINI_API_KEY = "gemini_api_key"
 WHISPER_MODEL = "openai/whisper-small"
 
 genai.configure(api_key=GEMINI_API_KEY)
