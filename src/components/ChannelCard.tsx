@@ -14,7 +14,6 @@ export function ChannelCard({ name, messages, platform, trend, timeAgo, onClick 
     Slack: 'bg-purple-500',
     Teams: 'bg-blue-500',
     Discord: 'bg-indigo-500',
-    Gmail: 'bg-red-500',
   };
 
   const trendIcons = {

@@ -16,13 +16,13 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
   // Navigates to dedicated pages for profile, privacy, help
 
   const [name, setName] = useState('John Doe');
-  const [email, setEmail] = useState('john.doe@gmail.com');
+  const [email, setEmail] = useState('john.doe@example.com');
 
   // Connected platforms local state
   const [slackConnected, setSlackConnected] = useState(true);
   const [teamsConnected, setTeamsConnected] = useState(true);
   const [discordConnected, setDiscordConnected] = useState(false);
-  const [gmailConnected, setGmailConnected] = useState(false);
+
 
   const handleLogout = () => {
     if (confirm('Are you sure you want to log out?')) {
@@ -222,29 +222,7 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
                   </button>
                 )}
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-xs">G</span>
-                  </div>
-                  <span className="text-white text-sm">Gmail</span>
-                </div>
-                {gmailConnected ? (
-                  <button
-                    onClick={() => setGmailConnected(false)}
-                    className="text-slate-300 text-xs hover:text-red-300 transition-colors"
-                  >
-                    Disconnect
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setGmailConnected(true)}
-                    className="text-indigo-400 text-xs hover:text-indigo-300 transition-colors"
-                  >
-                    Connect
-                  </button>
-                )}
-              </div>
+                {/* Gmail removed */}
             </div>
           </div>
         </div>

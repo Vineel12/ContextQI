@@ -22,7 +22,7 @@ export function ChannelListScreen({ onNavigate }: ChannelListScreenProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlatform, setSelectedPlatform] = useState<string>('All');
 
-  const platforms = ['All', 'Slack', 'Teams', 'Discord', 'Gmail'];
+  const platforms = ['All', 'Slack', 'Teams', 'Discord'];
 
   const filteredChannels = allChannels.filter(channel => {
     const matchesSearch = channel.name.toLowerCase().includes(searchQuery.toLowerCase());

@@ -8,7 +8,7 @@ interface ProfileScreenProps {
 
 export function ProfileScreen({ onNavigate }: ProfileScreenProps) {
   const [name, setName] = useState('John Doe');
-  const [email, setEmail] = useState('john.doe@gmail.com');
+  const [email, setEmail] = useState('john.doe@example.com');
 
   return (
     <div className="min-h-screen bg-slate-950">

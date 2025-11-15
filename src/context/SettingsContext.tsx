@@ -4,7 +4,6 @@ export type ConnectedMap = {
   slack: boolean;
   teams: boolean;
   discord: boolean;
-  gmail: boolean;
 };
 
 export type SettingsState = {
@@ -27,11 +26,11 @@ type SettingsActions = {
 
 const defaultState: SettingsState = {
   name: 'John Doe',
-  email: 'john.doe@gmail.com',
+  email: 'john.doe@example.com',
   notifications: true,
   darkMode: true,
   language: 'English',
-  connected: { slack: true, teams: true, discord: false, gmail: false },
+  connected: { slack: true, teams: true, discord: false },
 };
 
 // Keep typings minimal to avoid requiring @types/react in this project
@@ -67,7 +66,7 @@ export function SettingsProvider({ children }: { children: any }) {
     setConnected: (key, v) =>
       setState((s: any) => ({ ...s, connected: { ...s.connected, [key]: v } })),
     disconnectAll: () =>
-      setState((s: any) => ({ ...s, connected: { slack: false, teams: false, discord: false, gmail: false } })),
+      setState((s: any) => ({ ...s, connected: { slack: false, teams: false, discord: false } })),
   };
 
   return (

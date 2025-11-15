@@ -10,7 +10,6 @@ interface ConnectionState {
   slack: boolean;
   teams: boolean;
   discord: boolean;
-  gmail: boolean;
 }
 
 export function OAuthScreen({ onNavigate }: OAuthScreenProps) {
@@ -18,7 +17,6 @@ export function OAuthScreen({ onNavigate }: OAuthScreenProps) {
     slack: false,
     teams: false,
     discord: false,
-    gmail: false,
   });
 
   const toggleConnection = (platform: keyof ConnectionState) => {
@@ -142,33 +140,7 @@ export function OAuthScreen({ onNavigate }: OAuthScreenProps) {
           </button>
         </div>
 
-        {/* Gmail Card */}
-        <div className="bg-slate-800/80 rounded-3xl p-5">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-red-500 flex items-center justify-center flex-shrink-0">
-              <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64L12 9.548l6.545-4.91l1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
-              </svg>
-            </div>
-            <div className="flex-1">
-              <h3 className="text-white mb-1">Gmail</h3>
-              <p className="text-slate-400 text-sm">
-                Connect your Gmail account
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={() => toggleConnection('gmail')}
-            className={`w-full py-3 rounded-xl flex items-center justify-center gap-2 transition-colors ${
-              connected.gmail
-                ? 'bg-green-500/20 text-green-400'
-                : 'bg-slate-700/50 hover:bg-slate-700 text-white'
-            }`}
-          >
-            {connected.gmail && <Check className="w-5 h-5" />}
-            {connected.gmail ? 'Connected' : 'Connect Gmail'}
-          </button>
-        </div>
+        {/* Gmail card removed */}
 
         <div className="bg-slate-800/50 rounded-2xl p-4">
           <p className="text-slate-400 text-sm text-center">

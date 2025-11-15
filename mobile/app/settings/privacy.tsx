@@ -9,7 +9,7 @@ export default function PrivacySecurity() {
     const prev = JSON.parse(raw);
     const next = {
       ...prev,
-      connected: { slack: false, teams: false, discord: false, gmail: false },
+      connected: { slack: false, teams: false, discord: false },
     };
     await AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(next));
   };

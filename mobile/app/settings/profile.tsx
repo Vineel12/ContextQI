@@ -6,7 +6,7 @@ const STORAGE_KEY = 'contextiq_profile_v1';
 
 export default function Profile() {
   const [name, setName] = useState('John Doe');
-  const [email, setEmail] = useState('john.doe@gmail.com');
+  const [email, setEmail] = useState('john.doe@example.com');
 
   useEffect(() => {
     (async () => {

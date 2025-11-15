@@ -13,7 +13,6 @@ type SettingsState = {
     slack: boolean;
     teams: boolean;
     discord: boolean;
-    gmail: boolean;
   };
 };
 
@@ -21,7 +20,7 @@ const defaultState: SettingsState = {
   notifications: true,
   darkMode: true,
   language: 'English',
-  connected: { slack: true, teams: true, discord: false, gmail: false },
+  connected: { slack: true, teams: true, discord: false },
 };
 
 export default function Settings() {
@@ -99,7 +98,6 @@ export default function Settings() {
             { key: 'slack', label: 'Slack' },
             { key: 'teams', label: 'Teams' },
             { key: 'discord', label: 'Discord' },
-            { key: 'gmail', label: 'Gmail' },
           ] as const
         ).map(({ key, label }, idx) => (
           <View key={key}>
