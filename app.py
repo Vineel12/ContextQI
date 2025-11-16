@@ -1,4 +1,4 @@
-import torch
+'''import torch
 from fastapi import FastAPI, UploadFile, File
 from pydantic import BaseModel
 import google.generativeai as genai
@@ -171,4 +171,4 @@ async def transcribe_audio(file: UploadFile = File(...)):
     audio, sr = sf.read(io.BytesIO(audio_bytes))
 
     result = whisper_model.transcribe(audio)
-    return {"text": result["text"]}
+    return {"text": result["text"]}'''
