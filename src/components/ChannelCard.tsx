@@ -11,8 +11,6 @@ interface ChannelCardProps {
 
 export function ChannelCard({ name, messages, platform, trend, timeAgo, onClick }: ChannelCardProps) {
   const platformColors = {
-    Slack: 'bg-purple-500',
-    Teams: 'bg-blue-500',
     Discord: 'bg-indigo-500',
   };
 

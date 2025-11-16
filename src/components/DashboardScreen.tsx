@@ -8,9 +8,9 @@ interface DashboardScreenProps {
 }
 
 const recentChannels = [
-  { id: '1', name: 'engineering-team', messages: 1247, platform: 'Slack', trend: 'up' as const, timeAgo: '2m ago' },
-  { id: '2', name: 'product-design', messages: 892, platform: 'Slack', trend: 'up' as const, timeAgo: '15m ago' },
-  { id: '3', name: 'marketing', messages: 654, platform: 'Teams', trend: 'stable' as const, timeAgo: '1h ago' },
+  { id: '1', name: 'engineering-team', messages: 1247, platform: 'Discord', trend: 'up' as const, timeAgo: '2m ago' },
+  { id: '2', name: 'product-design', messages: 892, platform: 'Discord', trend: 'up' as const, timeAgo: '15m ago' },
+  { id: '3', name: 'marketing', messages: 654, platform: 'Discord', trend: 'stable' as const, timeAgo: '1h ago' },
 ];
 
 export function DashboardScreen({ onNavigate }: DashboardScreenProps) {

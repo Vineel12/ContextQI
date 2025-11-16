@@ -46,7 +46,7 @@ export function ChannelDetailScreen({ onNavigate }: ChannelDetailScreenProps) {
               <Users className="w-4 h-4" />
               <span>24 members</span>
               <span>•</span>
-              <span>Slack</span>
+              <span>Discord</span>
             </div>
           </div>
         </div>

@@ -8,21 +8,17 @@ interface ChannelListScreenProps {
 }
 
 const allChannels = [
-  { id: '1', name: 'engineering-team', messages: 1247, platform: 'Slack', trend: 'up' as const, timeAgo: '2m ago' },
-  { id: '2', name: 'product-design', messages: 892, platform: 'Slack', trend: 'up' as const, timeAgo: '15m ago' },
-  { id: '3', name: 'marketing', messages: 654, platform: 'Teams', trend: 'stable' as const, timeAgo: '1h ago' },
-  { id: '4', name: 'customer-success', messages: 534, platform: 'Discord', trend: 'up' as const, timeAgo: '2h ago' },
-  { id: '5', name: 'sales-team', messages: 423, platform: 'Slack', trend: 'down' as const, timeAgo: '3h ago' },
-  { id: '6', name: 'dev-ops', messages: 389, platform: 'Teams', trend: 'stable' as const, timeAgo: '4h ago' },
-  { id: '7', name: 'general', messages: 2156, platform: 'Slack', trend: 'up' as const, timeAgo: '5m ago' },
-  { id: '8', name: 'random', messages: 1089, platform: 'Discord', trend: 'stable' as const, timeAgo: '30m ago' },
+  { id: '1', name: 'customer-success', messages: 534, platform: 'Discord', trend: 'up' as const, timeAgo: '2h ago' },
+  { id: '2', name: 'random', messages: 1089, platform: 'Discord', trend: 'stable' as const, timeAgo: '30m ago' },
+  { id: '3', name: 'dev-chat', messages: 1567, platform: 'Discord', trend: 'up' as const, timeAgo: '8m ago' },
+  { id: '4', name: 'support', messages: 842, platform: 'Discord', trend: 'down' as const, timeAgo: '1h ago' },
 ];
 
 export function ChannelListScreen({ onNavigate }: ChannelListScreenProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlatform, setSelectedPlatform] = useState<string>('All');
 
-  const platforms = ['All', 'Slack', 'Teams', 'Discord'];
+  const platforms = ['All', 'Discord'];
 
   const filteredChannels = allChannels.filter(channel => {
     const matchesSearch = channel.name.toLowerCase().includes(searchQuery.toLowerCase());

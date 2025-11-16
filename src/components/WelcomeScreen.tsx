@@ -40,7 +40,7 @@ export function WelcomeScreen({ onNavigate }: WelcomeScreenProps) {
         <FeatureCard
           icon={MessageSquare}
           title="Unified Dashboard"
-          description="Connect Slack, Teams and Discord in one place"
+          description="Connect Discord channels in one place"
         />
         <FeatureCard
           icon={Brain}

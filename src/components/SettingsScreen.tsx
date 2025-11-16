@@ -19,8 +19,7 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
   const [email, setEmail] = useState('john.doe@example.com');
 
   // Connected platforms local state
-  const [slackConnected, setSlackConnected] = useState(true);
-  const [teamsConnected, setTeamsConnected] = useState(true);
+  // Removed Slack and Teams; Discord only
   const [discordConnected, setDiscordConnected] = useState(false);
 
 
@@ -148,57 +147,12 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
           </div>
         </div>
 
-        {/* Connected Platforms */}
+        {/* Connected Platforms (Discord only) */}
         <div>
           <h3 className="text-slate-400 text-sm mb-3 px-2">Connected Platforms</h3>
           <div className="bg-slate-800/80 rounded-2xl p-5">
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-xs">S</span>
-                  </div>
-                  <span className="text-white text-sm">Slack</span>
-                </div>
-                {slackConnected ? (
-                  <button
-                    onClick={() => setSlackConnected(false)}
-                    className="text-slate-300 text-xs hover:text-red-300 transition-colors"
-                  >
-                    Disconnect
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setSlackConnected(true)}
-                    className="text-indigo-400 text-xs hover:text-indigo-300 transition-colors"
-                  >
-                    Connect
-                  </button>
-                )}
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-xs">T</span>
-                  </div>
-                  <span className="text-white text-sm">Teams</span>
-                </div>
-                {teamsConnected ? (
-                  <button
-                    onClick={() => setTeamsConnected(false)}
-                    className="text-slate-300 text-xs hover:text-red-300 transition-colors"
-                  >
-                    Disconnect
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setTeamsConnected(true)}
-                    className="text-indigo-400 text-xs hover:text-indigo-300 transition-colors"
-                  >
-                    Connect
-                  </button>
-                )}
-              </div>
+              {/* Slack and Teams removed */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">

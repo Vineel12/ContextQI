@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 export type ConnectedMap = {
-  slack: boolean;
-  teams: boolean;
   discord: boolean;
 };
 
@@ -30,7 +28,7 @@ const defaultState: SettingsState = {
   notifications: true,
   darkMode: true,
   language: 'English',
-  connected: { slack: true, teams: true, discord: false },
+  connected: { discord: false },
 };
 
 // Keep typings minimal to avoid requiring @types/react in this project
@@ -66,7 +64,7 @@ export function SettingsProvider({ children }: { children: any }) {
     setConnected: (key, v) =>
       setState((s: any) => ({ ...s, connected: { ...s.connected, [key]: v } })),
     disconnectAll: () =>
-      setState((s: any) => ({ ...s, connected: { slack: false, teams: false, discord: false } })),
+      setState((s: any) => ({ ...s, connected: { discord: false } })),
   };
 
   return (

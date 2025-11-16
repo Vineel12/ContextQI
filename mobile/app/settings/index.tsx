@@ -10,8 +10,6 @@ type SettingsState = {
   darkMode: boolean;
   language: string;
   connected: {
-    slack: boolean;
-    teams: boolean;
     discord: boolean;
   };
 };
@@ -20,7 +18,7 @@ const defaultState: SettingsState = {
   notifications: true,
   darkMode: true,
   language: 'English',
-  connected: { slack: true, teams: true, discord: false },
+  connected: { discord: false },
 };
 
 export default function Settings() {
@@ -90,29 +88,20 @@ export default function Settings() {
         </Pressable>
       </View>
 
-      {/* Connected Platforms */}
+      {/* Connected Platforms (Discord only) */}
       <Text style={styles.sectionLabel}>Connected Platforms</Text>
       <View style={styles.card}>
-        {(
-          [
-            { key: 'slack', label: 'Slack' },
-            { key: 'teams', label: 'Teams' },
-            { key: 'discord', label: 'Discord' },
-          ] as const
-        ).map(({ key, label }, idx) => (
-          <View key={key}>
-            {!!idx && <View style={styles.divider} />}
-            <View style={styles.rowBetween}>
-              <Text style={styles.rowTitle}>{label}</Text>
-              <Switch
-                value={state.connected[key]}
-                onValueChange={(v: boolean) =>
-                  setState((s: SettingsState) => ({ ...s, connected: { ...s.connected, [key]: v } }))
-                }
-              />
-            </View>
+        <View>
+          <View style={styles.rowBetween}>
+            <Text style={styles.rowTitle}>Discord</Text>
+            <Switch
+              value={state.connected.discord}
+              onValueChange={(v: boolean) =>
+                setState((s: SettingsState) => ({ ...s, connected: { ...s.connected, discord: v } }))
+              }
+            />
           </View>
-        ))}
+        </View>
       </View>
 
       {/* Other */}
