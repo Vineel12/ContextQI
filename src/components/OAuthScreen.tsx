@@ -52,7 +52,7 @@ export function OAuthScreen({ onNavigate }: OAuthScreenProps) {
 
       {/* Connection Cards */}
       <div className="flex-1 space-y-3 overflow-y-auto">
-        {/* Slack and Teams removed */}
+        
 
         {/* Discord Card */}
         <div className="bg-slate-800/80 rounded-3xl p-5">
@@ -82,7 +82,7 @@ export function OAuthScreen({ onNavigate }: OAuthScreenProps) {
           </button>
         </div>
 
-        {/* Gmail card removed */}
+        
 
         <div className="bg-slate-800/50 rounded-2xl p-4">
           <p className="text-slate-400 text-sm text-center">

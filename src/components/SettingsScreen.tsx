@@ -19,7 +19,7 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
   const [email, setEmail] = useState('john.doe@example.com');
 
   // Connected platforms local state
-  // Removed Slack and Teams; Discord only
+  
   const [discordConnected, setDiscordConnected] = useState(false);
 
 
@@ -152,7 +152,7 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
           <h3 className="text-slate-400 text-sm mb-3 px-2">Connected Platforms</h3>
           <div className="bg-slate-800/80 rounded-2xl p-5">
             <div className="space-y-3">
-              {/* Slack and Teams removed */}
+              
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
@@ -176,7 +176,7 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
                   </button>
                 )}
               </div>
-                {/* Gmail removed */}
+              
             </div>
           </div>
         </div>
