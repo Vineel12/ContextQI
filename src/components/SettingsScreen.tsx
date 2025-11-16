@@ -2,6 +2,7 @@ import { ArrowLeft, User, Bell, Shield, HelpCircle, LogOut, ChevronRight, Moon, 
 import { Screen } from '../App';
 import { useState } from 'react';
 import { useSettings } from '../context/SettingsContext';
+import { connectDiscord, getApiBase } from '../lib/api';
  
 
 interface SettingsScreenProps {
@@ -20,7 +21,7 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
 
   // Connected platforms local state
   
-  const [discordConnected, setDiscordConnected] = useState(false);
+  const base = getApiBase();
 
 
   const handleLogout = () => {
@@ -160,21 +161,12 @@ export function SettingsScreen({ onNavigate }: SettingsScreenProps) {
                   </div>
                   <span className="text-white text-sm">Discord</span>
                 </div>
-                {discordConnected ? (
-                  <button
-                    onClick={() => setDiscordConnected(false)}
-                    className="text-slate-300 text-xs hover:text-red-300 transition-colors"
-                  >
-                    Disconnect
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setDiscordConnected(true)}
-                    className="text-indigo-400 text-xs hover:text-indigo-300 transition-colors"
-                  >
-                    Connect
-                  </button>
-                )}
+                <button
+                  onClick={() => (base ? connectDiscord() : alert('Set VITE_API_BASE_URL to enable Discord connect'))}
+                  className="text-indigo-400 text-xs hover:text-indigo-300 transition-colors"
+                >
+                  Connect
+                </button>
               </div>
               
             </div>

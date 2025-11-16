@@ -34,3 +34,13 @@ export async function chat(text: string) {
 export function getApiBase(): string | undefined {
   return BASE;
 }
+
+export function connectDiscord() {
+  if (!BASE) throw new Error('VITE_API_BASE_URL is not set');
+  window.location.href = `${BASE}/discord/login`;
+}
+
+export async function getConnectedGuilds(): Promise<any[]> {
+  const data = await request<{ connected: any[] }>(`/discord/connected`);
+  return data.connected || [];
+}

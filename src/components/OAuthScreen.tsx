@@ -10,31 +10,29 @@ interface ConnectionState {
   discord: boolean;
 }
 
+  import { connectDiscord, getApiBase, getConnectedGuilds } from '../lib/api';
 export function OAuthScreen({ onNavigate }: OAuthScreenProps) {
   const [connected, setConnected] = useState<ConnectionState>({
     discord: false,
   });
 
-  const toggleConnection = (platform: keyof ConnectionState) => {
-    setConnected(prev => ({ ...prev, [platform]: !prev[platform] }));
-  };
-
   const handleContinue = () => {
-    if (Object.values(connected).some(val => val)) {
-      onNavigate('dashboard');
-    }
+    const [guilds, setGuilds] = useState<any[]>([]);
+    const base = getApiBase();
   };
-
-  const hasConnection = Object.values(connected).some(val => val);
-
   return (
-    <div className="min-h-screen p-6 flex flex-col bg-slate-950">
-      {/* Status Bar */}
-      <div className="h-8" />
-
-      {/* Header */}
       <div className="flex items-center mb-8">
-        <button
+    useEffect(() => {
+      (async () => {
+        if (!base) return;
+        try {
+          const g = await getConnectedGuilds();
+          setGuilds(g || []);
+        } catch {}
+      })();
+    }, [base]);
+
+    const hasConnection = guilds && guilds.length > 0;
           onClick={() => onNavigate('welcome')}
           className="w-11 h-11 rounded-2xl bg-slate-800/80 hover:bg-slate-700/80 flex items-center justify-center transition-colors"
         >
@@ -76,11 +74,10 @@ export function OAuthScreen({ onNavigate }: OAuthScreenProps) {
                 ? 'bg-green-500/20 text-green-400'
                 : 'bg-slate-700/50 hover:bg-slate-700 text-white'
             }`}
-          >
+              onClick={() => (base ? connectDiscord() : alert('Set VITE_API_BASE_URL to enable Discord connect'))}
             {connected.discord && <Check className="w-5 h-5" />}
             {connected.discord ? 'Connected' : 'Connect Discord'}
-          </button>
-        </div>
+              Connect Discord
 
         
 
@@ -93,7 +90,7 @@ export function OAuthScreen({ onNavigate }: OAuthScreenProps) {
 
       {/* Continue Button */}
       <button
-        onClick={handleContinue}
+          onClick={() => onNavigate('dashboard')}
         disabled={!hasConnection}
         className={`w-full py-4 rounded-2xl flex items-center justify-center gap-2 transition-colors mb-8 mt-6 ${
           hasConnection
