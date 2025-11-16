@@ -220,7 +220,39 @@ def chat_db(payload: TextIn):
     return chat(payload)
 
 # -----------------------------------------------------
-# TRANSCRIBE (Whisper) + upload
+# TRANSCRIBE (HuggingFace Whisper-small API) + upload
+# -----------------------------------------------------
+HF_API_KEY = os.getenv("HF_API_KEY")
+HF_WHISPER_MODEL = os.getenv("HF_WHISPER_MODEL", "https://api-inference.huggingface.co/models/openai/whisper-small")
+
+@app.post("/transcribe")
+async def transcribe_audio(file: UploadFile = File(...)):
+    audio_bytes = await file.read()
+    headers = {"Authorization": f"Bearer {HF_API_KEY}"}
+    res = requests.post(HF_WHISPER_MODEL, headers=headers, data=audio_bytes)
+    try:
+        text = res.json().get("text")
+    except:
+        text = None
+    return {"text": text}
+
+@app.post("/transcribe_upload")
+async def transcribe_and_store(file: UploadFile = File(...)):
+    audio_bytes = await file.read()
+    headers = {"Authorization": f"Bearer {HF_API_KEY}"}
+    res = requests.post(HF_WHISPER_MODEL, headers=headers, data=audio_bytes)
+    try:
+        text = res.json().get("text")
+    except:
+        text = None
+
+    if supabase and text:
+        try:
+            supabase.table("audio_transcripts").insert({"transcript": text}).execute()
+        except Exception as e:
+            logger.warning("Failed to store transcript: %s", e)
+
+    return {"text": text, "status": "stored in db"}
 # -----------------------------------------------------
 @app.post("/transcribe")
 async def transcribe_audio(file: UploadFile = File(...)):
