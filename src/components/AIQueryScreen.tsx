@@ -1,7 +1,8 @@
 import { ArrowLeft, Send, Sparkles } from 'lucide-react';
 import { Screen } from '../App';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MessageBubble } from './MessageBubble';
+import { chat as apiChat, getApiBase } from '../lib/api';
 
 interface AIQueryScreenProps {
   onNavigate: (screen: Screen) => void;
@@ -14,35 +15,47 @@ const suggestedQueries = [
   'What are the upcoming deadlines?',
 ];
 
-const chatHistory = [
-  {
-    id: '1',
-    type: 'user' as const,
-    message: 'What tasks were discussed in the engineering channel today?',
-    time: '10:35 AM',
-  },
-  {
-    id: '2',
-    type: 'ai' as const,
-    message: 'Based on today\'s conversations in #engineering-team, I found 2 main tasks:\n\n1. Complete dashboard design - assigned to Sarah Chen\n2. Frontend implementation - assigned to Alex Kumar with an EOD deadline\n\nThere was also a decision to schedule a review meeting for tomorrow at 2pm.',
-    time: '10:35 AM',
-  },
-  {
-    id: '3',
-    type: 'user' as const,
-    message: 'What\'s the status of the dashboard redesign?',
-    time: '10:38 AM',
-  },
-  {
-    id: '4',
-    type: 'ai' as const,
-    message: 'The dashboard redesign is currently in progress. Sarah Chen completed the design phase with a prototype including glassmorphism effects. Mike Johnson reviewed it positively and suggested adding micro-interactions. The next phase is frontend implementation by Alex Kumar.',
-    time: '10:38 AM',
-  },
-];
+type ChatMsg = { id: string; type: 'user' | 'ai' | 'system'; message: string; time: string };
+const initialHistory: ChatMsg[] = [];
 
 export function AIQueryScreen({ onNavigate }: AIQueryScreenProps) {
   const [inputValue, setInputValue] = useState('');
+  const [messages, setMessages] = useState<ChatMsg[]>(initialHistory);
+  const [sending, setSending] = useState(false);
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // scroll to bottom on new message
+    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' });
+  }, [messages]);
+
+  const send = async (text: string) => {
+    if (!text.trim() || sending) return;
+    const now = new Date();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const idUser = crypto.randomUUID();
+    const idAi = crypto.randomUUID();
+    const base = getApiBase();
+
+    setSending(true);
+    setMessages((m) => [
+      ...m,
+      { id: idUser, type: 'user', message: text, time },
+      { id: idAi, type: 'ai', message: base ? 'Thinking…' : 'Set VITE_API_BASE_URL to enable backend', time },
+    ]);
+    setInputValue('');
+
+    if (!base) { setSending(false); return; }
+
+    try {
+      const reply = await apiChat(text);
+      setMessages((m) => m.map((msg) => (msg.id === idAi ? { ...msg, message: reply || 'No response' } : msg)));
+    } catch (e: any) {
+      setMessages((m) => m.map((msg) => (msg.id === idAi ? { ...msg, message: `Error: ${e?.message || 'Request failed'}` } : msg)));
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-950">
@@ -69,7 +82,7 @@ export function AIQueryScreen({ onNavigate }: AIQueryScreenProps) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide px-6 py-6">
+      <div ref={listRef} className="flex-1 overflow-y-auto scrollbar-hide px-6 py-6">
         {/* Suggested Queries */}
         <div className="mb-8">
           <h3 className="text-slate-400 text-sm mb-3">Suggested Questions</h3>
@@ -88,12 +101,12 @@ export function AIQueryScreen({ onNavigate }: AIQueryScreenProps) {
 
         {/* Chat History */}
         <div>
-          {chatHistory.map((chat) => (
+          {messages.map((chat) => (
             <MessageBubble
               key={chat.id}
               message={chat.message}
               time={chat.time}
-              type={chat.type}
+              type={chat.type as any}
               userName={chat.type === 'ai' ? 'AI Assistant' : undefined}
             />
           ))}
@@ -111,14 +124,15 @@ export function AIQueryScreen({ onNavigate }: AIQueryScreenProps) {
             className="flex-1 bg-transparent text-white placeholder-slate-500 outline-none"
           />
           <button
-            disabled={!inputValue.trim()}
+            onClick={() => send(inputValue)}
+            disabled={!inputValue.trim() || sending}
             className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-              inputValue.trim()
+              inputValue.trim() && !sending
                 ? 'bg-indigo-500 hover:bg-indigo-600'
                 : 'bg-slate-700/50'
             }`}
           >
-            <Send className={`w-5 h-5 ${inputValue.trim() ? 'text-white' : 'text-slate-500'}`} />
+            <Send className={`w-5 h-5 ${inputValue.trim() && !sending ? 'text-white' : 'text-slate-500'}`} />
           </button>
         </div>
       </div>
